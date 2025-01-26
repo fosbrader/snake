@@ -168,7 +168,7 @@ export default function SnakeGame() {
       onTouchEnd={handleTouchEnd}
       style={{ touchAction: 'none' }}
     >
-      <h1 className="text-2xl md:text-4xl font-bold text-green-500 mb-4 relative z-10">{isMobile ? "Snake!" : "Play with Brad's Big Snake"}</h1>
+      <h1 className="text-2xl md:text-4xl font-bold text-green-500 mb-4 relative z-10">{isMobile ? "Snake!" : "Play Snake!"}</h1>
       
       {isMobile ? (
         // Mobile Layout
