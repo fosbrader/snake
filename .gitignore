@@ -1,2 +1,40 @@
+# macOS system files
 .DS_Store
-snake/.DS_Store
+**/.DS_Store
+
+# Dependencies
+**/node_modules
+**/package-lock.json
+
+# Production build
+**/build
+**/dist
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Testing
+**/coverage
+
+# Misc
+*.log
+*.cache
+.cache/
+**/.cache/
+.temp/
+.tmp/
