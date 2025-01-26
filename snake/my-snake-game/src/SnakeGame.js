@@ -160,7 +160,7 @@ export default function SnakeGame() {
 
   return (
     <div 
-      className="fixed inset-0 flex flex-col items-center justify-start w-full min-h-screen bg-black text-green-500 overflow-hidden font-mono p-4 arcade-bg" 
+      className="flex flex-col items-center justify-between min-h-screen bg-black text-green-500 font-mono p-4 arcade-bg" 
       tabIndex="0" 
       onKeyDown={handleKeyDown}
       onTouchStart={handleTouchStart}
@@ -168,91 +168,115 @@ export default function SnakeGame() {
       onTouchEnd={handleTouchEnd}
       style={{ touchAction: 'none' }}
     >
-      <h1 className="text-2xl md:text-4xl font-bold text-green-500 mb-4 relative z-10">{isMobile ? "Snake!" : "Play Snake!"}</h1>
-      
-      {isMobile ? (
-        // Mobile Layout
-        <div className="flex flex-col items-center w-full relative z-10">
-          <p className="text-2xl font-bold mb-2">Score: {score}</p>
-          <div className="relative bg-gray-900 border-4 border-green-500 rounded-lg mb-4 game-board-glow" style={{ width: boardSize, height: boardSize }}>
-            <svg width={boardSize} height={boardSize}>
-              <circle cx={food.x * (boardSize/600)} cy={food.y * (boardSize/600)} r={foodSize * (boardSize/600)} fill="red" />
-              {snake.map((segment, index) => (
-                <circle 
-                  key={index} 
-                  cx={segment.x * (boardSize/600)} 
-                  cy={segment.y * (boardSize/600)} 
-                  r={10 * (boardSize/600)} 
-                  fill="lime" 
-                />
-              ))}
-              {enemySnake.map((segment, index) => (
-                <circle 
-                  key={index} 
-                  cx={segment.x * (boardSize/600)} 
-                  cy={segment.y * (boardSize/600)} 
-                  r={10 * (boardSize/600)} 
-                  fill="purple" 
-                />
-              ))}
-            </svg>
-          </div>
-          
-          <div className="flex flex-col items-center">
-            <button
-              onClick={startGame}
-              className="px-4 py-2 bg-green-500 text-black rounded-lg shadow-md mb-4 text-lg"
-            >
-              {isPlaying ? 'Restart' : 'Start Game'}
-            </button>
+      <div className="flex flex-col items-center w-full">
+        <h1 className="text-2xl md:text-4xl font-bold text-green-500 mb-4 relative z-10">{isMobile ? "Snake!" : "Play Snake!"}</h1>
+        
+        {isMobile ? (
+          // Mobile Layout
+          <div className="flex flex-col items-center w-full relative z-10">
+            <p className="text-2xl font-bold mb-2">Score: {score}</p>
+            <div className="relative bg-gray-900 border-4 border-green-500 rounded-lg mb-4 game-board-glow" style={{ width: boardSize, height: boardSize }}>
+              <svg width={boardSize} height={boardSize}>
+                <circle cx={food.x * (boardSize/600)} cy={food.y * (boardSize/600)} r={foodSize * (boardSize/600)} fill="red" />
+                {snake.map((segment, index) => (
+                  <circle 
+                    key={index} 
+                    cx={segment.x * (boardSize/600)} 
+                    cy={segment.y * (boardSize/600)} 
+                    r={10 * (boardSize/600)} 
+                    fill="lime" 
+                  />
+                ))}
+                {enemySnake.map((segment, index) => (
+                  <circle 
+                    key={index} 
+                    cx={segment.x * (boardSize/600)} 
+                    cy={segment.y * (boardSize/600)} 
+                    r={10 * (boardSize/600)} 
+                    fill="purple" 
+                  />
+                ))}
+              </svg>
+            </div>
             
-            <div className="grid grid-cols-3 gap-3 w-48 mb-4">
-              <div></div>
-              <button className="bg-green-500 text-black p-4 rounded-lg text-2xl" onClick={() => handleMobileButton('up')}>↑</button>
-              <div></div>
-              <button className="bg-green-500 text-black p-4 rounded-lg text-2xl" onClick={() => handleMobileButton('left')}>←</button>
-              <div></div>
-              <button className="bg-green-500 text-black p-4 rounded-lg text-2xl" onClick={() => handleMobileButton('right')}>→</button>
-              <div></div>
-              <button className="bg-green-500 text-black p-4 rounded-lg text-2xl" onClick={() => handleMobileButton('down')}>↓</button>
-              <div></div>
+            <div className="flex flex-col items-center">
+              <button
+                onClick={startGame}
+                className="px-4 py-2 bg-green-500 text-black rounded-lg shadow-md mb-4 text-lg"
+              >
+                {isPlaying ? 'Restart' : 'Start Game'}
+              </button>
+              
+              <div className="grid grid-cols-3 gap-3 w-48 mb-4">
+                <div></div>
+                <button className="bg-green-500 text-black p-4 rounded-lg text-2xl" onClick={() => handleMobileButton('up')}>↑</button>
+                <div></div>
+                <button className="bg-green-500 text-black p-4 rounded-lg text-2xl" onClick={() => handleMobileButton('left')}>←</button>
+                <div></div>
+                <button className="bg-green-500 text-black p-4 rounded-lg text-2xl" onClick={() => handleMobileButton('right')}>→</button>
+                <div></div>
+                <button className="bg-green-500 text-black p-4 rounded-lg text-2xl" onClick={() => handleMobileButton('down')}>↓</button>
+                <div></div>
+              </div>
             </div>
           </div>
-        </div>
-      ) : (
-        // Desktop Layout
-        <div className="flex items-center justify-center gap-8 relative z-10">
-          <div className="flex flex-col">
-            <p className="text-3xl font-bold mb-4">Score: {score}</p>
-            <p className="text-lg mb-4">Upcoming Challenges:</p>
-            <ul className="text-lg mb-4">
-              <li>10: Food shrinks</li>
-              <li>15: Speed increases</li>
-              <li>20: Food shrinks again</li>
-              <li>25: Speed increases</li>
-              <li>30: Enemy snake appears</li>
-            </ul>
-            {gameOver && <p className="text-red-500 font-bold mb-4">Game Over!</p>}
-            <button
-              onClick={startGame}
-              className="px-4 py-2 bg-green-500 text-black rounded-lg shadow-md"
-            >
-              {isPlaying ? 'Restart' : 'Start Game'}
-            </button>
+        ) : (
+          // Desktop Layout
+          <div className="flex items-center justify-center gap-8 relative z-10">
+            <div className="flex flex-col">
+              <p className="text-3xl font-bold mb-4">Score: {score}</p>
+              <p className="text-lg mb-4">Upcoming Challenges:</p>
+              <ul className="text-lg mb-4">
+                <li>10: Food shrinks</li>
+                <li>15: Speed increases</li>
+                <li>20: Food shrinks again</li>
+                <li>25: Speed increases</li>
+                <li>30: Enemy snake appears</li>
+              </ul>
+              {gameOver && <p className="text-red-500 font-bold mb-4">Game Over!</p>}
+              <button
+                onClick={startGame}
+                className="px-4 py-2 bg-green-500 text-black rounded-lg shadow-md"
+              >
+                {isPlaying ? 'Restart' : 'Start Game'}
+              </button>
+            </div>
+            <div className="relative bg-gray-900 border-4 border-green-500 rounded-lg game-board-glow" style={{ width: boardSize, height: boardSize }}>
+              <svg width={boardSize} height={boardSize}>
+                <circle cx={food.x} cy={food.y} r={foodSize} fill="red" />
+                {snake.map((segment, index) => (
+                  <circle key={index} cx={segment.x} cy={segment.y} r="10" fill="lime" />
+                ))}
+                {enemySnake.map((segment, index) => (
+                  <circle key={index} cx={segment.x} cy={segment.y} r="10" fill="purple" />
+                ))}
+              </svg>
+            </div>
           </div>
-          <div className="relative bg-gray-900 border-4 border-green-500 rounded-lg game-board-glow" style={{ width: boardSize, height: boardSize }}>
-            <svg width={boardSize} height={boardSize}>
-              <circle cx={food.x} cy={food.y} r={foodSize} fill="red" />
-              {snake.map((segment, index) => (
-                <circle key={index} cx={segment.x} cy={segment.y} r="10" fill="lime" />
-              ))}
-              {enemySnake.map((segment, index) => (
-                <circle key={index} cx={segment.x} cy={segment.y} r="10" fill="purple" />
-              ))}
-            </svg>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
+
+      {/* Footer */}
+      <div className="mt-auto pt-8 text-center flex items-center justify-center gap-3">
+        <a 
+          href="https://github.com/fosbrader/snake" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="text-green-500 hover:text-green-400 transition-colors duration-200"
+          aria-label="GitHub Repository"
+        >
+          <svg 
+            viewBox="0 0 24 24" 
+            width="24" 
+            height="24" 
+            fill="currentColor" 
+          >
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+        </a>
+        <div className="h-6 w-px bg-green-500"></div>
+        <span className="text-green-500">v1.0.0</span>
+      </div>
     </div>
   );
 }
