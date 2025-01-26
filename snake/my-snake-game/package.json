@@ -16,7 +16,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build --dotfiles true --git git --branch gh-pages --repo https://github.com/fosbrader/snake.git"
+    "deploy": "gh-pages -d build -m 'Deploy Snake Game to GitHub Pages'"
   },
   "eslintConfig": {
     "extends": [
